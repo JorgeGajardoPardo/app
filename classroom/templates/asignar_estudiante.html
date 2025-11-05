@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Asignar estudiante{% endblock %}
+{% block content %}
+<h2 class="text-center mb-4">Asignar estudiante a <strong>{{ curso.nombre }}</strong></h2>
+
+<!-- Formulario para asignar -->
+<form method="POST" class="card card-morado p-4 mx-auto" style="max-width: 500px;">
+  <div class="mb-3">
+    <label class="form-label">Selecciona estudiante:</label>
+    <select name="estudiante_id" class="form-select" required>
+      {% for est in estudiantes %}
+        <option value="{{ est._id }}">{{ est.nombre }} ({{ est.email }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-morado w-100">Asignar</button>
+</form>
+
+<!-- Mensajes -->
+{% if mensaje %}
+  <div class="alert alert-success mt-3 text-center">{{ mensaje }}</div>
+{% endif %}
+{% if error %}
+  <div class="alert alert-danger mt-3 text-center">{{ error }}</div>
+{% endif %}
+
+<!-- Lista de estudiantes asignados -->
+<h4 class="mt-5 mb-3">Estudiantes asignados</h4>
+{% if asignados|length == 0 %}
+  <p class="text-muted">Aún no hay estudiantes asignados a este curso.</p>
+{% else %}
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for est in asignados %}
+        <tr>
+          <td>{{ est.nombre }}</td>
+          <td>{{ est.email }}</td>
+          <td>
+            <form action="/admin/quitar_estudiante/{{ curso._id }}/{{ est._id }}" method="POST" onsubmit="return confirm('¿Quitar estudiante del curso?')" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-outline-danger">Quitar</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<a href="/admin/panel" class="btn btn-secondary mt-4">Volver al panel</a>
+{% endblock %}

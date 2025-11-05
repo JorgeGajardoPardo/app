@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Contenido del curso{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">Contenido de <strong>{{ curso.nombre }}</strong></h2>
+
+{% for clase in clases %}
+  <div class="card mb-4 card-morado">
+    <div class="card-body">
+      <h5 class="card-title">{{ clase.titulo }}</h5>
+      <p class="card-text">{{ clase.descripcion }}</p>
+
+      {% if clase.tipo == 'video' %}
+        <div class="ratio ratio-16x9">
+          <iframe src="{{ clase.url }}" frameborder="0" allowfullscreen allow="encrypted-media"></iframe>
+        </div>
+      {% elif clase.tipo == 'texto' %}
+        <div class="mt-3">
+          <p>{{ clase.contenido }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
+<a href="/student/panel" class="btn btn-secondary">Volver al panel</a>
+{% endblock %}

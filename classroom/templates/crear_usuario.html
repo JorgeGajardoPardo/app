@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Crear Usuario{% endblock %}
+{% block content %}
+<h2 class="text-center mb-4">Crear nuevo usuario</h2>
+<form method="POST" class="card card-marino p-4 mx-auto" style="max-width: 500px;">
+    <div class="mb-3">
+        <label class="form-label">Nombre:</label>
+        <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Contraseña:</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Rol:</label>
+        <select name="rol" class="form-select">
+            <option value="estudiante">Estudiante</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-morado w-100">Crear</button>
+</form>
+{% if mensaje %}
+    <div class="alert alert-success mt-3 text-center">{{ mensaje }}</div>
+{% endif %}
+{% if error %}
+    <div class="alert alert-danger mt-3 text-center">{{ error }}</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Panel Estudiante{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">Panel del Estudiante</h2>
+<p class="text-center">Bienvenidas/os a este espacio</p><br/>
+<div class="row">
+  {% for curso in cursos %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card card-morado h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ curso.nombre }}</h5>
+          <p class="card-text">{{ curso.descripcion }}</p>
+          <div class="mt-auto d-flex flex-column gap-2">
+            <a href="/student/ver_clases/{{ curso._id }}" class="btn btn-morado">Ver clases</a>
+            <a href="/student/subir_informe/{{ curso._id }}" class="btn btn-secondary">Subir informe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

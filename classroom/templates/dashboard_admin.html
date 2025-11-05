@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Panel Admin{% endblock %}
+{% block content %}
+<h2 class="mb-4">Panel del Administrador</h2>
+<a href="/admin/crear_curso" class="btn btn-morado mb-3">Crear nuevo curso</a>
+<ul class="list-group">
+    {% for curso in cursos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ curso.nombre }}</strong><br>
+                <small>{{ curso.descripcion }}</small>
+                
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+  <a href="/admin/subir_clase/{{ curso._id }}" class="btn btn-sm btn-primary">Subir clase</a>
+  <a href="/admin/asignar_estudiante/{{ curso._id }}" class="btn btn-sm btn-secondary">Asignar estudiante</a>
+  <a href="/admin/ver_informes/{{ curso._id }}" class="btn btn-sm btn-info">Ver informes</a>
+  <form action="/admin/eliminar_curso/{{ curso._id }}" method="POST" onsubmit="return confirm('¿Eliminar este curso?')" style="display:inline;">
+    <button type="submit" class="btn btn-sm btn-danger">Eliminar curso</button>
+  </form>
+</div>
+
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

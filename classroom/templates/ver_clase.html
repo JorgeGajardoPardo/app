@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Ver clase{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">{{ clase.titulo }}</h2>
+<p class="text-center">{{ clase.descripcion }}</p>
+
+{% if clase.tipo == 'video' %}
+  <video controls width="100%" style="max-height: 500px;">
+    <source src="{{ url_for('student.ver_video', file_id=clase.archivo_id) }}" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+  <div class="alert alert-warning mt-4 text-center">
+  ⚠️ <strong>Importante:</strong> Está prohibido descargar este video o copiar el contenido de la clase para usos comerciales. Este material es exclusivo de Serpientes del Origen para uso educativo dentro de la plataforma.
+</div>
+
+{% elif clase.tipo == 'texto' %}
+  <div class="card card-morado p-4">
+    <p>{{ clase.contenido }}</p>
+  </div>
+{% endif %}
+
+<a href="{{ url_for('student.ver_clases', curso_id=curso._id) }}" class="btn btn-secondary mt-4">Volver a clases</a>
+{% endblock %}
